@@ -1,0 +1,50 @@
+#include <iostream>
+using namespace std;
+
+class Matrix {
+public:
+    int a[2][2];
+
+    void get() {
+        cout << "Enter 4 elements: ";
+        for(int i=0;i<2;i++)
+            for(int j=0;j<2;j++)
+                cin >> a[i][j];
+    }
+
+    void show() {
+        for(int i=0;i<2;i++) {
+            for(int j=0;j<2;j++)
+                cout << a[i][j] << " ";
+            cout << endl;
+        }
+    }
+
+    friend Matrix operator * (Matrix m1, Matrix m2);
+};
+
+Matrix operator * (Matrix m1, Matrix m2) {
+    Matrix temp;
+    for(int i=0;i<2;i++) {
+        for(int j=0;j<2;j++) {
+            temp.a[i][j] = 0;
+            for(int k=0;k<2;k++)
+                temp.a[i][j] += m1.a[i][k] * m2.a[k][j];
+        }
+    }
+    return temp;
+}
+
+int main() {
+    Matrix m1, m2, m3;
+
+    m1.get();
+    m2.get();
+
+    m3 = m1 * m2;
+
+    cout << "Result:\n";
+    m3.show();
+
+    return 0;
+}
